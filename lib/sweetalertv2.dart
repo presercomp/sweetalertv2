@@ -17,51 +17,49 @@ class SweetAlertV2Options {
   /// Subtitle string
   final String subtitle;
 
-  final SweetAlertV2OnPress onPress;
+  final SweetAlertV2OnPress? onPress;
 
-  /// Default value is `SweetAlertV2.success` when `showCancelButton`=false
-  /// and `SweetAlertV2.danger` when `showCancelButton` = true
-  final Color confirmButtonColor;
+  final Color? confirmButtonColor;
 
   /// Default value is `SweetAlertV2.cancel`
-  final Color cancelButtonColor;
+  final Color? cancelButtonColor;
 
   /// Default value is `SweetAlertV2.successText` when `showCancelButton`=false
   /// and `SweetAlertV2.dangerText` when `showCancelButton` = true
-  final String confirmButtonText;
+  final String? confirmButtonText;
 
   /// Default value is `SweetAlertV2.cancelText`
-  final String cancelButtonText;
+  final String? cancelButtonText;
 
   /// If set to true, two buttons will be displayed.
   final bool showCancelButton;
 
   /// The padding of the title text
-  final EdgeInsets titlePadding;
+  final EdgeInsets? titlePadding;
 
   /// The padding of the subtitle text
-  final EdgeInsets subtitlePadding;
+  final EdgeInsets? subtitlePadding;
 
   /// Alignment of the title text
-  final TextAlign titleTextAlign;
+  final TextAlign? titleTextAlign;
 
   /// Style of the title text
-  final TextStyle titleStyle;
+  final TextStyle? titleStyle;
 
   /// Alignment of the subtitle text
-  final TextAlign subtitleTextAlign;
+  final TextAlign? subtitleTextAlign;
 
   /// Style of the subtitle text
-  final TextStyle subtitleStyle;
+  final TextStyle? subtitleStyle;
 
-  final SweetAlertV2Style style;
+  final SweetAlertV2Style? style;
 
   SweetAlertV2Options(
       {this.showCancelButton: false,
       this.title: '',
-      this.subtitle:  '',
-      this.onPress : (_),
-      this.cancelButtonColor: (),
+      this.subtitle: '',
+      this.onPress,
+      this.cancelButtonColor,
       this.cancelButtonText,
       this.confirmButtonColor,
       this.confirmButtonText,
@@ -76,12 +74,12 @@ class SweetAlertV2Options {
 
 class SweetAlertV2Dialog extends StatefulWidget {
   /// animation curve when showing,if null,default value is `SweetAlertV2.showCurve`
-  final Curve curve;
+  final Curve? curve;
 
   final SweetAlertV2Options options;
 
   SweetAlertV2Dialog({
-    this.options,
+    required this.options,
     this.curve,
   }) : assert(options != null);
 
@@ -93,11 +91,11 @@ class SweetAlertV2Dialog extends StatefulWidget {
 
 class SweetAlertV2DialogState extends State<SweetAlertV2Dialog>
     with SingleTickerProviderStateMixin, SweetAlertV2 {
-  AnimationController controller;
+  late AnimationController controller;
 
-  Animation tween;
+  late Animation<double> tween;
 
-  SweetAlertV2Options _options;
+  late SweetAlertV2Options _options;
 
   @override
   void initState() {
@@ -114,7 +112,7 @@ class SweetAlertV2DialogState extends State<SweetAlertV2Dialog>
 
   @override
   void dispose() {
-    controller?.dispose();
+    controller.dispose();
     SweetAlertV2._state = null;
     super.dispose();
   }
@@ -125,12 +123,12 @@ class SweetAlertV2DialogState extends State<SweetAlertV2Dialog>
   }
 
   void confirm() {
-    if (_options.onPress != null && _options.onPress(true) == false) return;
+    if (_options.onPress!(true) == false) return;
     Navigator.pop(context);
   }
 
   void cancel() {
-    if (_options.onPress != null && _options.onPress(false) == false) return;
+    if (_options.onPress!(false) == false) return;
     Navigator.pop(context);
   }
 
@@ -178,11 +176,7 @@ class SweetAlertV2DialogState extends State<SweetAlertV2Dialog>
         child: new Text(
           _options.title,
           textAlign: this._options.titleTextAlign ?? TextAlign.left,
-          style: this._options.titleStyle ??
-              new TextStyle(
-                fontSize: 25.0,
-                color: new Color(0xff575757),
-              ),
+          style: this._options.titleStyle,
         ),
       ));
     }
@@ -288,25 +282,25 @@ abstract class SweetAlertV2 {
 
   static Curve showCurve = Curves.bounceOut;
 
-  static SweetAlertV2DialogState _state;
+  static SweetAlertV2DialogState? _state;
 
   static void show(BuildContext context,
-      {Curve curve,
-      String title,
-      String subtitle,
+      {Curve? curve,
+      String title: '',
+      String subtitle: '',
       bool showCancelButton: false,
-      SweetAlertV2OnPress onPress,
-      Color cancelButtonColor,
-      Color confirmButtonColor,
-      String cancelButtonText,
-      String confirmButtonText,
-      EdgeInsets titlePadding,
-      EdgeInsets subtitlePadding,
-      TextAlign titleTextAlign,
-      TextStyle titleStyle,
-      TextAlign subtitleTextAlign,
-      TextStyle subtitleStyle,
-      SweetAlertV2Style style}) {
+      SweetAlertV2OnPress? onPress,
+      Color? cancelButtonColor,
+      Color? confirmButtonColor,
+      String? cancelButtonText,
+      String? confirmButtonText,
+      EdgeInsets? titlePadding,
+      EdgeInsets? subtitlePadding,
+      TextAlign? titleTextAlign,
+      TextStyle? titleStyle,
+      TextAlign? subtitleTextAlign,
+      TextStyle? subtitleStyle,
+      SweetAlertV2Style? style}) {
     SweetAlertV2Options options = new SweetAlertV2Options(
         showCancelButton: showCancelButton,
         title: title,
@@ -324,7 +318,7 @@ abstract class SweetAlertV2 {
         subtitleTextAlign: subtitleTextAlign,
         subtitleStyle: subtitleStyle);
     if (_state != null) {
-      _state.update(options);
+      _state!.update(options);
     } else {
       showDialog(
           context: context,
