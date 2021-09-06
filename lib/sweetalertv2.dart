@@ -58,10 +58,10 @@ class SweetAlertV2Options {
 
   SweetAlertV2Options(
       {this.showCancelButton: false,
-      this.title,
-      this.subtitle,
-      this.onPress,
-      this.cancelButtonColor,
+      this.title: '',
+      this.subtitle:  '',
+      this.onPress : (_),
+      this.cancelButtonColor: (),
       this.cancelButtonText,
       this.confirmButtonColor,
       this.confirmButtonText,
