@@ -13,9 +13,9 @@ class CancelView extends StatefulWidget {
 
 class CancelViewState extends State<CancelView>
     with SingleTickerProviderStateMixin {
-  AnimationController animationController;
+  late AnimationController animationController;
 
-  SequenceAnimation sequenceAnimation;
+  late SequenceAnimation sequenceAnimation;
 
   @override
   void initState() {
@@ -91,7 +91,8 @@ class _CustomPainter extends CustomPainter {
   final double fade;
   final double factor;
 
-  _CustomPainter({this.color, this.fade, this.factor}) {
+  _CustomPainter(
+      {required this.color, required this.fade, required this.factor}) {
     _paint.strokeCap = StrokeCap.round;
     _paint.style = PaintingStyle.stroke;
     _paint.strokeWidth = 4.0;

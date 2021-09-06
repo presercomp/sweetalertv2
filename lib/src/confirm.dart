@@ -11,16 +11,18 @@ class ConfirmView extends StatefulWidget {
 
 class ConfirmViewState extends State<ConfirmView>
     with SingleTickerProviderStateMixin {
-  AnimationController animationController;
+  late AnimationController animationController;
 
-  Animation<Color> animation;
+  late Animation<Color> animation;
 
   @override
   void initState() {
     animationController = new AnimationController(vsync: this);
+    Color start = Color(0xffF7D58B);
+    Color end = Color(0xffF2A665);
+    ColorTween colorTween = new ColorTween(begin: start, end: end);
     animation =
-        new ColorTween(begin: new Color(0xffF7D58B), end: new Color(0xffF2A665))
-            .animate(animationController);
+        Animation<Color> colorTween.animate(animationController);
 
     // delay
     new Future.delayed(new Duration(milliseconds: 200)).then((_) {
@@ -50,7 +52,7 @@ class ConfirmViewState extends State<ConfirmView>
 
   @override
   void dispose() {
-    animationController?.dispose();
+    animationController.dispose();
     super.dispose();
   }
 
@@ -74,7 +76,7 @@ class _CustomPainter extends CustomPainter {
   double _r = 32.0;
   double factor = 0.96;
 
-  _CustomPainter({this.color}) {
+  _CustomPainter({required this.color}) {
     _paint.strokeCap = StrokeCap.round;
     _paint.style = PaintingStyle.stroke;
     _paint.strokeWidth = 4.0;
