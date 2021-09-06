@@ -21,8 +21,7 @@ class ConfirmViewState extends State<ConfirmView>
     Color start = Color(0xffF7D58B);
     Color end = Color(0xffF2A665);
     ColorTween colorTween = new ColorTween(begin: start, end: end);
-    animation =
-        Animation<Color> colorTween.animate(animationController);
+    animation = colorTween.animate(animationController);
 
     // delay
     new Future.delayed(new Duration(milliseconds: 200)).then((_) {

@@ -70,7 +70,7 @@ class _CustomPainter extends CustomPainter {
   double _strokeStart;
   double _strokeEnd;
 
-  _CustomPainter({this.strokeEnd, this.strokeStart}) {
+  _CustomPainter({required this.strokeEnd, required this.strokeStart}) {
     _paint.strokeCap = StrokeCap.round;
     _paint.style = PaintingStyle.stroke;
 

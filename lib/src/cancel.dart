@@ -58,7 +58,7 @@ class CancelViewState extends State<CancelView>
 
   @override
   void dispose() {
-    animationController?.dispose();
+    animationController.dispose();
     super.dispose();
   }
 
