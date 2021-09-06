@@ -12,9 +12,9 @@ class SuccessView extends StatefulWidget {
 
 class SuccessViewState extends State<SuccessView>
     with SingleTickerProviderStateMixin {
-  AnimationController animationController;
+  late AnimationController animationController;
 
-  SequenceAnimation sequenceAnimation;
+  late SequenceAnimation sequenceAnimation;
 
   @override
   void initState() {
@@ -67,8 +67,8 @@ class _CustomPainter extends CustomPainter {
   double strokeEnd;
   double total = 0;
 
-  double _strokeStart;
-  double _strokeEnd;
+  late double _strokeStart;
+  late double _strokeEnd;
 
   _CustomPainter({required this.strokeEnd, required this.strokeStart}) {
     _paint.strokeCap = StrokeCap.round;
